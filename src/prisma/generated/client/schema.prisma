@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Done
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String?
+  email   String   @unique
+  fullname String
+  privilege_group PrivilegeGroup
+  password String
+}
+
+enum PrivilegeGroup {
+  Merchant_owner
+  Merchant_admin
+  Guest
+  Merchant_supervisor
+  Area_manager
+}
+
+// Done
+model ProductType {
+  id      Int      @id @default(autoincrement())
+  name    String
+  description String
+  isActive Boolean
+}
+
+// Done
+model ProductBrand {
+  id      Int      @id @default(autoincrement())
+  name    String
+  description String
+  isActive Boolean
+}
+
+model Supplier {
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  description           String
+  supplier_contact_name String
+  contact_email         String
+  supplier_website      String
+  contact_phone         String?
+  contact_mobile        String? // Changed to BigInt
+  street_name           String
+  city                  String
+  postal_code           String
+  postal_address_name   String?
+  postal_city           String?
+  postal_code_postal    String?
+  isActive              Boolean
+}
